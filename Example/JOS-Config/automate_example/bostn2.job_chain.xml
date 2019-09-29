@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<job_chain  distributed="yes">
+    <job_chain_node  state="10" job="/automate_example/transfer_data1" error_state="error" next_state="15"/>
+
+    <job_chain_node  state="15" job="/automate_example/transfer_data2" next_state="20" error_state="error"/>
+
+    <job_chain_node  state="20" job="/automate_example/transfer_cmd1" error_state="error" next_state="25"/>
+
+    <job_chain_node  state="25" job="/automate_example/transfer_cmd2" next_state="30" error_state="error"/>
+
+    <job_chain_node  state="30" job="/automate_example/build1" error_state="error" next_state="35"/>
+
+    <job_chain_node  state="35" job="/automate_example/build2" next_state="success" error_state="error"/>
+
+    <job_chain_node  state="success"/>
+
+    <job_chain_node  state="error"/>
+</job_chain>

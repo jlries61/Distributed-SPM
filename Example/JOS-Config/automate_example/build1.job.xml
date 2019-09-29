@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<job  stop_on_error="no" order="yes" title="Run command files, put grove data in database, and archive files" process_class="/agent1">
+    <params />
+
+    <environment >
+        <variable  name="SPM" value="spmu"/>
+
+        <variable  name="SPMFLAGS" value="-q"/>
+
+        <variable  name="ROOT" value="/home/jobscheduler/automate"/>
+
+        <variable  name="MASTER" value="jospostgresalford.northcentralus.cloudapp.azure.com"/>
+
+        <variable  name="PROJECT" value="automate"/>
+    </environment>
+
+    <script  language="shell">
+        <![CDATA[
+cd $ROOT/cmd
+if [ ! -e archives ]; then
+  mkdir archives
+fi
+for file in *.cmd; do
+  basename=$(echo $file|cut -f1 -d.)
+  GROVE=$(echo $basename|tr [:lower:] [:upper:]).GRV
+  $SPM $SPMFLAGS $file
+  addgrv --spm=$SPM --host=$MASTER --grvpath="../results" --project=$PROJECT $GROVE --user=john
+done
+mv *.cmd archives
+        ]]>
+    </script>
+
+    <run_time />
+</job>

@@ -1,0 +1,92 @@
+digraph G {
+graph [
+fontsize = "8"
+rankdir = "TB"
+ratio = "auto"
+]
+node   [
+fillcolor = "azure"
+fontname = "Arial"
+fontsize = "8"
+shape = "box"
+style = "rounded,filled"
+]
+"order:bostn1_order" [
+fillcolor = "chartreuse"
+label = <Order:bostn1_order<br/><i><font point-size="8" color="blue" >Build&nbsp;TN&nbsp;Model&nbsp;BOSTN1&nbsp;and&nbsp;save&nbsp;grove&nbsp;data&nbsp;to&nbsp;database</font></i><br/>>
+shape = "ellipse"
+]
+"10" [
+label = <<b>10</b><br/>>
+]
+"30" [
+label = <<b>30</b><br/>>
+]
+"success" [
+label = <<b>success</b><br/>>
+]
+"error" [
+color = "blue"
+fillcolor = "orange"
+label = <<b>error</b>>
+]
+"20" [
+label = <<b>20</b><br/>>
+]
+"10" [
+label = <<b>10</b><br/><i><font point-size="8" color="blue" >/automate_example/transfer_data</font></i><br/>>
+]
+"order:bostn1_order" -> "10"[
+arrowsize = "0.5"
+color = "black"
+constraint = "true"
+fontname = "Arial"
+fontsize = "8.0"
+style = "dashed"
+]
+"30" -> "success"[
+arrowsize = "0.5"
+color = "cadetblue"
+fontname = "Arial"
+fontsize = "8.0"
+label = "..next"
+]
+"30" -> "error"[
+arrowsize = "0.5"
+color = "cadetblue"
+constraint = "true"
+fontname = "Arial"
+fontsize = "8.0"
+style = "dotted"
+]
+"20" -> "30"[
+arrowsize = "0.5"
+color = "cadetblue"
+fontname = "Arial"
+fontsize = "8.0"
+label = "..next"
+]
+"20" -> "error"[
+arrowsize = "0.5"
+color = "cadetblue"
+constraint = "true"
+fontname = "Arial"
+fontsize = "8.0"
+style = "dotted"
+]
+"10" -> "20"[
+arrowsize = "0.5"
+color = "cadetblue"
+fontname = "Arial"
+fontsize = "8.0"
+label = "..next"
+]
+"10" -> "error"[
+arrowsize = "0.5"
+color = "cadetblue"
+constraint = "true"
+fontname = "Arial"
+fontsize = "8.0"
+style = "dotted"
+]
+}

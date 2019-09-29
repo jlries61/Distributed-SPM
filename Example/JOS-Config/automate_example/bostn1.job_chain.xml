@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<job_chain  title="Build TN model BOSTN1">
+    <job_chain_node  state="10" job="/automate_example/transfer_data" next_state="20" error_state="error"/>
+
+    <job_chain_node  state="20" job="/automate_example/transfer_cmd" next_state="30" error_state="error"/>
+
+    <job_chain_node  state="30" job="/automate_example/build" next_state="success" error_state="error"/>
+
+    <job_chain_node  state="success"/>
+
+    <job_chain_node  state="error"/>
+</job_chain>

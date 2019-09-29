@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<process_class max_processes="10">
+   <remote_schedulers>
+      <remote_scheduler remote_scheduler="http://192.168.122.82:4445"/>
+   </remote_schedulers>
+</process_class>
