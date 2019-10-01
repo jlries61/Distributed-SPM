@@ -74,4 +74,14 @@ These instructions are Linux specific, but the principles will be similar under 
 
 5.  Make `sos_jos` a service in the same manner described for the JobScheduler server.
 
+6.  Reboot the machine.
 
+7.  Assuming all has gone well, the agent will be running.  To check (assuming you are running `systemd`), type:
+```
+systemctl status sos_jos
+```
+If it isn't, try starting it manually, like so:
+```
+sudo systemctl start sos_jos
+```
+Then check again.
