@@ -16,4 +16,7 @@ well, as well as any other computing platform Minitab chooses to support.
 
 ## What is required?
 
-* SPM 8.3 (non-GUI), available from Salford Systems.
+* SPM 8.3 (non-GUI), available from [Salford Systems](https://www.salford-systems.com/products/spm).
+* [JobScheduler](https://sourceforge.net/projects/jobscheduler/files/)
+* [SPM Model Database](https://github.com/jlries61/SPM_Model_Database)
+* 
