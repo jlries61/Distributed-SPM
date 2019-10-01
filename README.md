@@ -70,7 +70,7 @@ These instructions are Linux specific, but the principles will be similar under 
 
 3.  Unpack the agent archive.  Move the directory `jobscheduler_agent` to the home directory of the account from which the agent will be run and rename it to `jos`.
 
-4.  Copy 'sos_jos.sh' (in the root of this repository) to '/etc/init.d'.  Modify the script, as necessary, by setting `USER` to the name of the unprivileged account that will run the agent.
+4.  Copy `sos_jos.sh` (in the root of this repository) to `/etc/init.d`.  Modify the script, as necessary, by setting `USER` to the name of the unprivileged account that will run the agent.
 
 5.  Make `sos_jos` a service in the same manner described for the JobScheduler server.
 
