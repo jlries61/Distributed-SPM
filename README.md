@@ -60,6 +60,18 @@ These instructions are Linux specific, but the principles will be similar under 
 
 6. Reboot the machine.
 
+7. Assuming all has gone well, you should be able to point your browser to `http://localhost:4446` and log in as root (lame default password is "root").  Change the password to something reasonable and while you're at it, create a non-privileged account to do work from (and give it a decent password too).
+
 ## Configuring the Slave Machines
 
-1.  Install all software required by SPM Model Database, except for the PostgreSQL server.  Install `addgrv` to a directory in the path such as `/usr/local/bin`.
+1.  Install all software required by SPM Model Database, except for the PostgreSQL server (install the client instead).  Install `addgrv` to a directory in the path such as `/usr/local/bin`.
+
+2.  Install the JDK.
+
+3.  Unpack the agent archive.  Move the directory `jobscheduler_agent` to the home directory of the account from which the agent will be run and rename it to `jos`.
+
+4.  Copy 'sos_jos.sh' (in the root of this repository) to '/etc/init.d'.  Modify the script, as necessary, by setting `USER` to the name of the unprivileged account that will run the agent.
+
+5.  Make `sos_jos` a service in the same manner described for the JobScheduler server.
+
+
