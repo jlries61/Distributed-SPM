@@ -85,3 +85,16 @@ If it isn't, try starting it manually, like so:
 sudo systemctl start sos_jos
 ```
 Then check again.
+
+## Configuring the Database Server
+
+Normally, this will be the same as the master machine, but may be separate.  The slave machines need to be able to write to it, which may not be possible if the master is on your local network behind a firewall and the slave machines are not.
+
+1.  Install the PostgreSQL server.  The exact package will vary depending on the Linux distribution employed.
+
+1.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
+
+1.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
+
+1.  As this new user, create a new database to hold the model data (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
+  
