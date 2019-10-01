@@ -96,5 +96,11 @@ Normally, this will be the same as the master machine, but may be separate.  The
 
 1.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
 
+1.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
+```
+# MAPNAME       SYSTEM-USERNAME         PG-USERNAME
+agent           jobscheduler            john
+```
+
 1.  As this new user, create a new database to hold the model data (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
   
