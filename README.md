@@ -102,5 +102,20 @@ Normally, this will be the same as the master machine, but may be separate.  The
 agent           jobscheduler            john
 ```
 
-1.  As this new user, create a new database to hold the model data (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
+1.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
+```
+host     all             all             52.162.218.151/32 ident map=agent
+host     all             all             168.62.104.141/32 ident map=agent
+```
+
+I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.
+
+1.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
   
+1.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
+```
+psql -h <hostname> -U <username> -d spm
+```
+If you get a prompt without error messages, it works.  Exit with the "\q" command.
+
+# Running the Example
