@@ -143,3 +143,11 @@ In `Example/JOS-Config/automate_example`:
 * transfer_data2.job.xml
 
 In all four cases, change the value of `target_host` to the name or IP address of the appropriate slave machine.  Use the name specified in `agent1.process_class.xml` in `transfer_cmd1.job.xml` and `transfer_cmd2.job.xml`.  Use the name specified in `agent2.process_class.xml` in `transfer_data1.job.xml` and `transfer_data2.job.xml`.  Also, change the usernames and passwords to the ones you are actually using.
+
+# Running the example
+
+With your web browser, log into (https://localhost:4446).  Assuming all is
+well, you will see something like this:
+
+!(pics/HomePage.png)
+
