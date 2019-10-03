@@ -5,7 +5,7 @@ Facilitating the sharing of SPM jobs across multiple machines
 The goal is to create a system to allow the user to use Salford Predictive Modeler (SPM) to build batteries of predictive models on multiple machines in an automated fashion (in parallel) and then collect model settings, performance statistics, and other like data into a PostgreSQL database.
 
 ## How far have we gotten?
-I have an example that will run six models on two machines residing in AWS and then send the aforesaid performance statistics and model settings to a Postgres database residing on a third AWS machine.  At the present time, this all happens under Linux, but in theory, it could happen on Windows as well, as will as any other computing platforms Minitab may choose to support in the future.
+I have an example that will run six models on two machines residing in Azure and then send the aforesaid performance statistics and model settings to a Postgres database residing on a third Azure machine.  At the present time, this all happens under Linux, but in theory, it could happen on Windows as well, as will as any other computing platforms Minitab may choose to support in the future.
 
 The instructions that follow are for Linux.  Thus far, the distributions employed have been Fedora, Ubuntu, and OpenSUSE.
 
