@@ -108,7 +108,7 @@ host     all             all             52.162.218.151/32 ident map=agent
 host     all             all             168.62.104.141/32 ident map=agent
 ```
 
-I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.
+I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.  The raw IP addresses are used because it appears that Azure does not support reverse DNS.
 
 1.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
   
@@ -116,6 +116,30 @@ I chose to use `ident` as the authentication protocol, but there are other optio
 ```
 psql -h <hostname> -U <username> -d spm
 ```
-If you get a prompt without error messages, it works.  Exit with the "\q" command.
+If you get a prompt without error messages, it works.  Exit with the `\q` command.
 
-# Running the Example
+## Running the Example
+
+### Installing the SPM files
+
+Copy the contents of `Example/automate` in this repository to your home directory on the master machine.
+
+### Installing the JobScheduler configuration files
+
+Copy the contents of `Example/JOS-Config/automate_example` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
+
+Edit the following configuration files, replacing the existing hostnames with yours:
+
+In `Example/JOS-Config`:
+* agent1.process_class.xml
+* agent2.process_class.xml
+
+In both cases, change the value of `remote_scheduler` to the name or IP address of the appropriate slave machine.
+
+In `Example/JOS-Config/automate_example`:
+* transfer_cmd1.job.xml
+* transfer_cmd2.job.xml
+* transfer_data1.job.xml
+* transfer_data2.job.xml
+
+In all four cases, change the value of `target_host` to the name or IP address of the appropriate slave machine.  Use the name specified in `agent1.process_class.xml` in `transfer_cmd1.job.xml` and `transfer_cmd2.job.xml`.  Use the name specified in `agent2.process_class.xml` in `transfer_data1.job.xml` and `transfer_data2.job.xml`.  Also, change the usernames and passwords to the ones you are actually using.
