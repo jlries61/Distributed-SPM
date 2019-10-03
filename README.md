@@ -175,4 +175,6 @@ modstats --host=<hostname> --user=<username> --password=<password> --project=aut
 ```
 If the the command is being run on the database server using the same account that owns the database, the `--host`, `--user`, and `--password` options are unnecessary.
 
+The resulting CSV file (`bostn2_perf.csv`) can then be opened in your favorite spreadsheet application.  Here is what it looks like in LibreOffice Calc:
 
+![](pics/modstats.png)
