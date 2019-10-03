@@ -159,6 +159,6 @@ Now, click on "automate_example".  You will see:
 
 ![](pics/Orders2.png)
 
-Now, click on the elipsis next to "bostn2_order":
+Now, click on the ellipsis next to "bostn2_order":
 
 ![](pics/Orders3.png)
