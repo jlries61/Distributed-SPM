@@ -151,3 +151,14 @@ well, you will see something like this:
 
 ![](pics/HomePage.png)
 
+Click on "Orders" and you will see:
+
+![](pics/Orders1.png)
+
+Now, click on "automate_example".  You will see:
+
+![](pics/Orders2.png)
+
+Now, click on the elipsis next to "bostn2_order":
+
+![](pics/Order3.png)
