@@ -171,5 +171,8 @@ When the status is again "pending", the job is finished.  To get statistics on
 the results, type something like the following at the terminal:
 
 ```
-
+modstats --host=<hostname> --user=<username> --password=<password> --project=automate --perfstats=mse,rmse,mad,mape,rsquared,rsquarednorm --sortby=rsquared --sessflds=mart_losscri_reg >bostn2_perf.csv
 ```
+If the the command is being run on the database server using the same account that owns the database, the `--host`, `--user`, and `--password` options are unnecessary.
+
+
