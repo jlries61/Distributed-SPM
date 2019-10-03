@@ -168,6 +168,8 @@ Finally, click on "Start order now".  This will launch the job.
 ![](pics/Orders4.png)
 
 When the status is again "pending", the job is finished.  To get statistics on
-the results, type the following at the terminal:
+the results, type something like the following at the terminal:
 
+```
 
+```
