@@ -85,3 +85,61 @@ If it isn't, try starting it manually, like so:
 sudo systemctl start sos_jos
 ```
 Then check again.
+
+## Configuring the Database Server
+
+Normally, this will be the same as the master machine, but may be separate.  The slave machines need to be able to write to it, which may not be possible if the master is on your local network behind a firewall and the slave machines are not.
+
+1.  Install the PostgreSQL server.  The exact package will vary depending on the Linux distribution employed.
+
+1.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
+
+1.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
+
+1.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
+```
+# MAPNAME       SYSTEM-USERNAME         PG-USERNAME
+agent           jobscheduler            john
+```
+
+1.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
+```
+host     all             all             52.162.218.151/32 ident map=agent
+host     all             all             168.62.104.141/32 ident map=agent
+```
+
+I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.  The raw IP addresses are used because it appears that Azure does not support reverse DNS.
+
+1.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
+  
+1.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
+```
+psql -h <hostname> -U <username> -d spm
+```
+If you get a prompt without error messages, it works.  Exit with the `\q` command.
+
+## Running the Example
+
+### Installing the SPM files
+
+Copy the contents of `Example/automate` in this repository to your home directory on the master machine.
+
+### Installing the JobScheduler configuration files
+
+Copy the contents of `Example/JOS-Config/automate_example` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
+
+Edit the following configuration files, replacing the existing hostnames with yours:
+
+In `Example/JOS-Config`:
+* agent1.process_class.xml
+* agent2.process_class.xml
+
+In both cases, change the value of `remote_scheduler` to the name or IP address of the appropriate slave machine.
+
+In `Example/JOS-Config/automate_example`:
+* transfer_cmd1.job.xml
+* transfer_cmd2.job.xml
+* transfer_data1.job.xml
+* transfer_data2.job.xml
+
+In all four cases, change the value of `target_host` to the name or IP address of the appropriate slave machine.  Use the name specified in `agent1.process_class.xml` in `transfer_cmd1.job.xml` and `transfer_cmd2.job.xml`.  Use the name specified in `agent2.process_class.xml` in `transfer_data1.job.xml` and `transfer_data2.job.xml`.  Also, change the usernames and passwords to the ones you are actually using.
