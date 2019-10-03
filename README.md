@@ -161,4 +161,4 @@ Now, click on "automate_example".  You will see:
 
 Now, click on the elipsis next to "bostn2_order":
 
-![](pics/Order3.png)
+![](pics/Orders3.png)
