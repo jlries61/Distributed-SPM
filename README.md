@@ -162,3 +162,8 @@ Now, click on "automate_example".  You will see:
 Now, click on the ellipsis next to "bostn2_order":
 
 ![](pics/Orders3.png)
+
+Finally, click on "Start order now".  This will launch the job.
+
+![](pics/Orders4.png)
+
