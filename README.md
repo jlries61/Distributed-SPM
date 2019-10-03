@@ -146,8 +146,8 @@ In all four cases, change the value of `target_host` to the name or IP address o
 
 # Running the example
 
-With your web browser, log into (https://localhost:4446).  Assuming all is
+With your web browser, log into https://localhost:4446.  Assuming all is
 well, you will see something like this:
 
-!(pics/HomePage.png)
+![](pics/HomePage.png)
 
