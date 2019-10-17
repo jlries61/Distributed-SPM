@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<job  title="API Job for Yet Another Data Exchange" stop_on_error="no">
+    <description >
+        <include  file="jobs/jadeJob.xml"/>
+    </description>
+
+    <params >
+        <param  name="operation" value="copy"/>
+
+        <param  name="target_user" value="jries"/>
+
+        <param  name="compress_files" value="false"/>
+
+        <param  name="overwrite_files" value="true"/>
+
+        <param  name="source_dir" value="/home/jries/projects/automate/data"/>
+
+        <param  name="source_host" value="localhost"/>
+
+        <param  name="source_protocol" value="local"/>
+
+        <param  name="target_dir" value="/home/jries/projects/automate/data"/>
+
+        <param  name="target_host" value="192.168.122.82"/>
+
+        <param  name="target_protocol" value="ftp"/>
+
+        <param  name="target_password" value="rieJ6ees"/>
+    </params>
+
+    <environment >
+        <variable  name="ROOT" value="/home/jries/projects/automate"/>
+
+        <variable  name="USER" value="jries"/>
+
+        <variable  name="PASSWORD" value="rieJ6ees"/>
+
+        <variable  name="SLAVE" value="192.168.122.82"/>
+    </environment>
+
+    <script  language="java" java_class="sos.scheduler.jade.JadeJob"/>
+
+    <run_time />
+</job>
