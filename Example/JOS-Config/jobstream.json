@@ -1,0 +1,531 @@
+[
+  {
+    "jobStream": "BosTN2",
+    "jobs": [
+      {
+        "job": "/automate_example_stream/BosTN2",
+        "inconditions": [],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 1,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " BosTN2 "
+                    ],
+                    "job": "/automate_example_stream/transfer_data1"
+                  },
+                  {
+                    "expressions": [
+                      " BosTN2 "
+                    ],
+                    "job": "/automate_example_stream/transfer_data2"
+                  },
+                  {
+                    "expressions": [
+                      " BosTN2 "
+                    ],
+                    "job": "/automate_example_stream/transfer_cmd2"
+                  },
+                  {
+                    "expressions": [
+                      " BosTN2 "
+                    ],
+                    "job": "/automate_example_stream/transfer_cmd1"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "BosTN2",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/build1",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "transfer_data1 and transfer_cmd1 ",
+              "validatedExpression": " true && true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 7,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 7
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/transfer_data1"
+                  },
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/transfer_cmd1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 8,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " build1 and build2 "
+                    ],
+                    "job": "/automate_example_stream/modstats"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "build1",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/build2",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "transfer_data2 and transfer_cmd2 ",
+              "validatedExpression": " true && true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 9,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 9
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/transfer_data2"
+                  },
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/transfer_cmd2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 10,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " build1 and build2 "
+                    ],
+                    "job": "/automate_example_stream/modstats"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "build2",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 10
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/transfer_data1",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "BosTN2 ",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 4,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 4
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/BosTN2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 5,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " transfer_data1 and transfer_cmd1 "
+                    ],
+                    "job": "/automate_example_stream/build1"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "transfer_data1",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/transfer_data2",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "BosTN2 ",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 6,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 6
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/BosTN2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 7,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " transfer_data2 and transfer_cmd2 "
+                    ],
+                    "job": "/automate_example_stream/build2"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "transfer_data2",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 7
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/transfer_cmd1",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "BosTN2 ",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 3,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 3
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/BosTN2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 4,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " transfer_data1 and transfer_cmd1 "
+                    ],
+                    "job": "/automate_example_stream/build1"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "transfer_cmd1",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/transfer_cmd2",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "BosTN2 ",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 2,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 2
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/BosTN2"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": [
+          {
+            "conditionExpression": {
+              "expression": "rc:0",
+              "validatedExpression": " true",
+              "value": true
+            },
+            "id": 3,
+            "inconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      " transfer_data2 and transfer_cmd2 "
+                    ],
+                    "job": "/automate_example_stream/build2"
+                  }
+                ]
+              }
+            ],
+            "jobStream": "BosTN2",
+            "outconditionEvents": [
+              {
+                "command": "create",
+                "event": "transfer_cmd2",
+                "exists": true,
+                "existsInJobStream": true,
+                "id": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "job": "/automate_example_stream/modstats",
+        "inconditions": [
+          {
+            "conditionExpression": {
+              "expression": "build1 and build2 ",
+              "validatedExpression": " true && true",
+              "value": true
+            },
+            "consumed": true,
+            "id": 10,
+            "inconditionCommands": [
+              {
+                "command": "startjob",
+                "commandParam": "now",
+                "id": 10
+              }
+            ],
+            "jobStream": "BosTN2",
+            "markExpression": true,
+            "outconditions": [
+              {
+                "jobStream": "BosTN2",
+                "jobs": [
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/build2"
+                  },
+                  {
+                    "expressions": [
+                      "rc:0"
+                    ],
+                    "job": "/automate_example_stream/build1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outconditions": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<job  stop_on_error="no">
+    <script  language="shell">
+        <![CDATA[
+cd $HOME/projects/automate
+modstats --db=spm --host=jospostgresalford.northcentralus.cloudapp.azure.com \
+         --user=john --password=uachieng5MoS --project=automate \
+         --perfstats=mse,rmse,mad,mape,rsquared,rsquarednorm \
+         --sessflds=mart_losscri_reg >bostn2__stream_perf.csv
+        ]]>
+    </script>
+
+    <run_time />
+</job>
