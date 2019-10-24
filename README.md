@@ -183,14 +183,21 @@ Each box represents a job and the arrows show the dependencies.  The jobs are as
 
 1.  modstats creates a report on the models built thus far.
 
-When the status is again "pending", the job is finished.  To get statistics on
-the results, type something like the following at the terminal:
+To start the stream, click on the elipsis next to the initial job (BosTN2) and select
+"Start Job Now".
 
-```
-modstats --host=<hostname> --user=<username> --password=<password> --project=automate --perfstats=mse,rmse,mad,mape,rsquared,rsquarednorm --sortby=rsquared --sessflds=mart_losscri_reg >bostn2_perf.csv
-```
-If the the command is being run on the database server using the same account that owns the database, the `--host`, `--user`, and `--password` options are unnecessary.
+![](pics/runstream.png)
 
-The resulting CSV file (`bostn2_perf.csv`) can then be opened in your favorite spreadsheet application.  Here is what it looks like in LibreOffice Calc:
+The blocks for the jobs running will turn green, like so:
+
+![](pics/runstream2.png)
+
+When all of the blocks are again yellow, the job is finished.  Assuming everything ran successfully,
+the task history will look something like this:
+
+![](pics/TaskHistory.png)
+
+In the current example, the output file will be `$HOME/projects/automate/bostn2__stream_perf.csv`.
+In LibreOffice, it looks like this:
 
 ![](pics/modstats.png)
