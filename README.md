@@ -46,11 +46,11 @@ These instructions are Linux specific, but the principles will be similar under 
   ```
   After entering your password, the GUI will appear and you will be able to install.  On step 8, change the value for *Allowed Host* to 0.0.0.0.  On step 9, check the "Enable Job Stream Plugin" box.  On step 13, set the host to 127.0.0.1 (localhost), the user to "root" and the password to the previously set password for the root role.
   
-5. Install the JOC Cockpit in the same manner as the JobScheduler.  On step 6, set *Host* to 127.0.0.1, *Database* to "scheduler", and username and password the same as for JobScheduler.
+4. Install the JOC Cockpit in the same manner as the JobScheduler.  On step 6, set *Host* to 127.0.0.1, *Database* to "scheduler", and username and password the same as for JobScheduler.
 
-6. Reboot the machine.
+5. Reboot the machine.
 
-7. Assuming all has gone well, you should be able to point your browser to `http://localhost:4446` and log in as root (lame default password is "root").  Change the password to something reasonable and while you're at it, create a non-privileged account to do work from (and give it a decent password too).
+6. Assuming all has gone well, you should be able to point your browser to `http://localhost:4446` and log in as root (lame default password is "root").  Change the password to something reasonable and while you're at it, create a non-privileged account to do work from (and give it a decent password too).
 
 ## Configuring the Slave Machines
 
@@ -82,17 +82,17 @@ Normally, this will be the same as the master machine, but may be separate.  The
 
 1.  Install the PostgreSQL server.  The exact package will vary depending on the Linux distribution employed.
 
-1.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
+2.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
 
-1.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
+3.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
 
-1.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
+4.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
 ```
 # MAPNAME       SYSTEM-USERNAME         PG-USERNAME
 agent           jobscheduler            john
 ```
 
-1.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
+5.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
 ```
 host     all             all             52.162.218.151/32 ident map=agent
 host     all             all             168.62.104.141/32 ident map=agent
@@ -100,9 +100,9 @@ host     all             all             168.62.104.141/32 ident map=agent
 
 I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.  The raw IP addresses are used because it appears that Azure does not support reverse DNS.
 
-1.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
+6.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
   
-1.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
+7.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
 ```
 psql -h <hostname> -U <username> -d spm
 ```
