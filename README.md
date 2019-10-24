@@ -12,8 +12,8 @@ The instructions that follow are for Linux.  Thus far, the distributions employe
 ## What is required?
 
 * SPM 8.3 (non-GUI), available from [Salford Systems](https://www.salford-systems.com/products/spm).
-* [JobScheduler 1.13 or later](https://sourceforge.net/projects/jobscheduler/files/)
-  You want the main program (jobscheduler_\*), and the JOC Cockpit (joc_\*).  Version 1.13 is now required in order to support job streams, which are required to run jobs in parallel.
+* [JobScheduler 1.12.9](https://sourceforge.net/projects/jobscheduler/files/JobScheduler.1.12/JobScheduler.1.12.9/)
+  You want the main program (jobscheduler_\*), and the JOC Cockpit (joc_\*).
 * [SPM Model Database](https://github.com/jlries61/SPM_Model_Database)
 * [JobScheduler Universal Agent](https://www.sos-berlin.com/jobscheduler-downloads)
 * The [Java Development Kit](https://www.java.com/en/), version 8 or higher [OpenJDK](https://openjdk.java.net/install/) works fine and probably comes with your Linux distro.
@@ -44,7 +44,17 @@ These instructions are Linux specific, but the principles will be similar under 
   ```
   sudo  "java" -jar "./jobscheduler_linux-x64.1.12.9.jar"
   ```
-  After entering your password, the GUI will appear and you will be able to install.  On step 8, change the value for *Allowed Host* to 0.0.0.0.  On step 9, check the "Enable Job Stream Plugin" box.  On step 13, set the host to 127.0.0.1 (localhost), the user to "root" and the password to the previously set password for the root role.
+  After entering your password, the GUI will appear and you will be able to install.  On step 8, change the value for *Allowed Host* to 0.0.0.0.  On step 13, set the host to 127.0.0.1 (localhost), the user to "root" and the password to the previously set password for the root role.
+
+4. Enable JobScheduler to run as a service.  The startup script is`/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/bin/jobscheduler.sh`.  Copy it into `/etc/init.d`, removing the `.sh` extension.  If one is running SysVInit (traditional Linux `init`) then one can simply add the usual links to the usual `rc?.d` directories.  If instead one is running `systemd` (as most modern Linux distributions now do), then you will need to add it as a service there.  Under Debian and such derivatives as Ubuntu, one can run the following command from `/etc/init.d`:
+  ```
+  sudo update-rc.d jobscheduler defaults
+  ```
+  Otherwise, one can run the following command:
+  ```
+  sudo systemctl start jobscheduler
+  ```
+  And `systemd` will automatically incorporate the new service before launching it.
   
 5. Install the JOC Cockpit in the same manner as the JobScheduler.  On step 6, set *Host* to 127.0.0.1, *Database* to "scheduler", and username and password the same as for JobScheduler.
 
@@ -126,7 +136,7 @@ In `Example/JOS-Config`:
 
 In both cases, change the value of `remote_scheduler` to the name or IP address of the appropriate slave machine.
 
-In `Example/JOS-Config/automate_example_stream`:
+In `Example/JOS-Config/automate_example`:
 * transfer_cmd1.job.xml
 * transfer_cmd2.job.xml
 * transfer_data1.job.xml
