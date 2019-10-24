@@ -56,11 +56,11 @@ These instructions are Linux specific, but the principles will be similar under 
   ```
   And `systemd` will automatically incorporate the new service before launching it.
   
-5. Install the JOC Cockpit in the same manner as the JobScheduler.  On step 6, set *Host* to 127.0.0.1, *Database* to "scheduler", and username and password the same as for JobScheduler.
+4. Install the JOC Cockpit in the same manner as the JobScheduler.  On step 6, set *Host* to 127.0.0.1, *Database* to "scheduler", and username and password the same as for JobScheduler.
 
-6. Reboot the machine.
+5. Reboot the machine.
 
-7. Assuming all has gone well, you should be able to point your browser to `http://localhost:4446` and log in as root (lame default password is "root").  Change the password to something reasonable and while you're at it, create a non-privileged account to do work from (and give it a decent password too).
+6. Assuming all has gone well, you should be able to point your browser to `http://localhost:4446` and log in as root (lame default password is "root").  Change the password to something reasonable and while you're at it, create a non-privileged account to do work from (and give it a decent password too).
 
 ## Configuring the Slave Machines
 
@@ -92,17 +92,17 @@ Normally, this will be the same as the master machine, but may be separate.  The
 
 1.  Install the PostgreSQL server.  The exact package will vary depending on the Linux distribution employed.
 
-1.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
+2.  As the PostgreSQL user (usually `postgres`), create the role that will own the databsase (`john` in our example).  This can be done with the `createuser` utility, or in the `psql` interpreter with the `CREATE USER` command.
 
-1.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
+3.  In `postgresql.conf`, set `listen_address` to whatever addresses should be listening for database connections.  By default, PostgreSQL will only listen for connections originating on the local machine.
 
-1.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
+4.  If the username on the slave machines does not match the name of the Postgres account that owns the database, a mapping will need to be created in `pg_ident.conf`.  In our current example, we have:
 ```
 # MAPNAME       SYSTEM-USERNAME         PG-USERNAME
 agent           jobscheduler            john
 ```
 
-1.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
+5.  Each client machine must be entered into `pg_hba.conf`.  Here are mine:
 ```
 host     all             all             52.162.218.151/32 ident map=agent
 host     all             all             168.62.104.141/32 ident map=agent
@@ -110,9 +110,9 @@ host     all             all             168.62.104.141/32 ident map=agent
 
 I chose to use `ident` as the authentication protocol, but there are other options that might work better for you.  If you use it, then make sure that an `ident` service is installed and running on each client machine.  See the Postgres documentation for configuration details.  The raw IP addresses are used because it appears that Azure does not support reverse DNS.
 
-1.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
+6.  As the user created to own the model database, create it (`spm` in our example).  This can be done with the `createdb` utility or in `psql` with the `CREATE DATABASE` command.
   
-1.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
+7.  Test your configuration by trying to log in to the database from each of the slave machines, using the `psql` utility.  Something like the following should work:
 ```
 psql -h <hostname> -U <username> -d spm
 ```
@@ -126,7 +126,7 @@ Copy the contents of `Example/automate` in this repository to your home director
 
 ### Installing the JobScheduler configuration files
 
-Copy the contents of `Example/JOS-Config/automate_example` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
+Copy the contents of `Example/JOS-Config/automate_example_stream` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
 
 Edit the following configuration files, replacing the existing hostnames with yours:
 
@@ -151,30 +151,63 @@ well, you will see something like this:
 
 ![](pics/HomePage.png)
 
-Click on "Orders" and you will see:
+Click on "JOB STREAMS" and you will see:
 
-![](pics/Orders1.png)
+![](pics/jobstreams1.png)
 
-Now, click on "automate_example".  You will see:
+Now, click on "automate_example_stream".  You will see:
 
-![](pics/Orders2.png)
+![](pics/jobstreams2.png)
 
-Now, click on the ellipsis next to "bostn2_order":
+Now, click on "Import Job Stream".
 
-![](pics/Orders3.png)
+![](pics/jobstreams3.png)
 
-Finally, click on "Start order now".  This will launch the job.
+Click on "CHOOSE FILES TO UPLOAD".
 
-![](pics/Orders4.png)
+![](pics/jobstreams4.png)
 
-When the status is again "pending", the job is finished.  To get statistics on
-the results, type something like the following at the terminal:
+Select Example/JOS_Config/jobstream.json.
 
-```
-modstats --host=<hostname> --user=<username> --password=<password> --project=automate --perfstats=mse,rmse,mad,mape,rsquared,rsquarednorm --sortby=rsquared --sessflds=mart_losscri_reg >bostn2_perf.csv
-```
-If the the command is being run on the database server using the same account that owns the database, the `--host`, `--user`, and `--password` options are unnecessary.
+![](pics/jobstreams5.png)
 
-The resulting CSV file (`bostn2_perf.csv`) can then be opened in your favorite spreadsheet application.  Here is what it looks like in LibreOffice Calc:
+Check "Job Name", causing all boxes to be checked.
+
+![](pics/jobstreams5a.png)
+
+Click on Import, and you should the diagram below:
+
+![](pics/jobstreams6.png)
+
+Each box represents a job and the arrows show the dependencies.  The jobs are as follows:
+
+1.  BosTN2 starts the sequence off.  At present, all it does is wait for a second.
+
+1.  transfer_data1 copies the input dataset to the first agent.  transfer_data2 does so to the second agent.
+
+1.  transfer_cmd1 and transfer_cmd2 copie the requisite command files to the respective agent servers.
+    The contents of projects/automate/cmd1 are copied to the first agent and the contents of projects/automate/cmd2 to the second.
+
+1.  build1 and build2 build the models on the respective agent servers, move the command files to
+    the archives directory, and send the model information to the PostgreSQL database.
+
+1.  modstats creates a report on the models built thus far.
+
+To start the stream, click on the elipsis next to the initial job (BosTN2) and select
+"Start Job Now".
+
+![](pics/runstream.png)
+
+The blocks for the jobs running will turn green, like so:
+
+![](pics/runstream2.png)
+
+When all of the blocks are again yellow, the job is finished.  Assuming everything ran successfully,
+the task history will look something like this:
+
+![](pics/TaskHistory.png)
+
+In the current example, the output file will be `$HOME/projects/automate/bostn2__stream_perf.csv`.
+In LibreOffice, it looks like this:
 
 ![](pics/modstats.png)
