@@ -116,7 +116,7 @@ Copy the contents of `Example/automate` in this repository to your home director
 
 ### Installing the JobScheduler configuration files
 
-Copy the contents of `Example/JOS-Config/automate_example` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
+Copy the contents of `Example/JOS-Config/automate_example_stream` to `/opt/sos-berlin.com/jobscheduler/ <hostname> _40444/config/live`.
 
 Edit the following configuration files, replacing the existing hostnames with yours:
 
@@ -141,21 +141,47 @@ well, you will see something like this:
 
 ![](pics/HomePage.png)
 
-Click on "Orders" and you will see:
+Click on "JOB STREAMS" and you will see:
 
-![](pics/Orders1.png)
+![](pics/jobstreams1.png)
 
-Now, click on "automate_example".  You will see:
+Now, click on "automate_example_stream".  You will see:
 
-![](pics/Orders2.png)
+![](pics/jobstreams2.png)
 
-Now, click on the ellipsis next to "bostn2_order":
+Now, click on "Import Job Stream".
 
-![](pics/Orders3.png)
+![](pics/jobstreams3.png)
 
-Finally, click on "Start order now".  This will launch the job.
+Click on "CHOOSE FILES TO UPLOAD".
 
-![](pics/Orders4.png)
+![](pics/jobstreams4.png)
+
+Select Example/JOS_Config/jobstream.json.
+
+![](pics/jobstreams5.png)
+
+Check "Job Name", causing all boxes to be checked.
+
+![](pics/jobstreams5a.png)
+
+Click on Import, and you should the diagram below:
+
+![](pics/jobstreams6.png)
+
+Each box represents a job and the arrows show the dependencies.  The jobs are as follows:
+
+1.  BosTN2 starts the sequence off.  At present, all it does is wait for a second.
+
+1.  transfer_data1 copies the input dataset to the first agent.  transfer_data2 does so to the second agent.
+
+1.  transfer_cmd1 and transfer_cmd2 copie the requisite command files to the respective agent servers.
+    The contents of projects/automate/cmd1 are copied to the first agent and the contents of projects/automate/cmd2 to the second.
+
+1.  build1 and build2 build the models on the respective agent servers, move the command files to
+    the archives directory, and send the model information to the PostgreSQL database.
+
+1.  modstats creates a report on the models built thus far.
 
 When the status is again "pending", the job is finished.  To get statistics on
 the results, type something like the following at the terminal:
