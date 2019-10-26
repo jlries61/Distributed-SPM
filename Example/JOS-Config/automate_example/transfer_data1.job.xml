@@ -30,8 +30,6 @@
         <param  name="target_port" value="21"/>
 
         <param  name="target_password" value="fio5ohlahCah"/>
-
-        <param  name="passive_mode" value="false"/>
     </params>
 
     <environment >

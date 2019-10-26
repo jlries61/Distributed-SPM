@@ -29,9 +29,7 @@
 
         <param  name="target_protocol" value="ftp"/>
 
-        <param  name="overwrite_files" value="false"/>
-
-        <param  name="passive_mode" value="false"/>
+        <param  name="overwrite_files" value="true"/>
     </params>
 
     <environment >
