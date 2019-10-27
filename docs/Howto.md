@@ -172,4 +172,14 @@ Click on the "New Folder" button and create a new folder
 
 ![Creating New HotFolder](../pics/jobedit_new_folder.png)
 
-Now,
+Now, hit Enter and click on "OK".
+
+![New HotFolder](../pics/jobedit3.png)
+
+Click on "Jobs"...
+
+![Jobs](../pics/jobedit4.png)
+
+...and click on "New Standalone job".
+
+![job1](../pics/jobedit_job1.png)
