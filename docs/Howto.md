@@ -106,12 +106,12 @@ for dir in ../cmd[1-$N]; do
 done
 ```
 
-`genmany3` is a shell script I wrote, but do not have authority to
-distribute (Minitab, which bought my former employer, holds the copyright).
-It is my intent to write a replacement in due course, but what it does is to
-replace one or more strings ("tokens") in the source command files with one or
-more specified strings, thus producing either a stream of commands (which can
-be fed to SPM), or multiple command files, which is what we do here.
+In the example script above we make use of a proprietary shell script which is
+used to generate a number of slightly different .cmd files allowing us to
+explore variations in model specifications, including hyperparameters.
+I expect to provide an open source substitute for genmany in the near future
+but most experienced programmers would find it relatively easy to write their
+own.
 
 The command files produced are `bostn2_*.cmd` as follows:
 ```
