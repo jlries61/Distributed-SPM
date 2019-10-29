@@ -183,3 +183,76 @@ Click on "Jobs"...
 ...and click on "New Standalone job".
 
 ![job1](../pics/jobedit_job1.png)
+
+Select "job1" in the left menu panel.
+
+![General Job Attributes](../pics/new_job1.png)
+
+Now fill in the dialogue for the initial job.  The sole purpose of this one is to start the process, so all it will do is to sleep for one second.  After you have filled in the definition, you can click on the disk icon to save the current status.
+
+![Define initial job](../pics/BosTN2_job.png)
+
+Click on "Jobs" and then on "Wizards".  We then see the "Import Jobs" dialogue.
+
+![Import Jobs Dialogue](../pics/import_jobs.png)
+
+The intent here is to define a job to copy the contents of the Data directory
+to the first agent, so we select "YADE-Job" as the job template and
+fill in the other blank spaces.
+
+![Import Jobs Dialogue filled in](../pics/import_jobs2.png)
+
+Now, click on "Next".
+
+![Job Parameters Dialogue](../pics/job_parameters1.png)
+
+From here, we set the appropriate parameters for the job.
+
+![Job Parameters filled in](../pics/job_parameters2.png)
+
+Your mileage may vary, but here we set reasonable settings for the transfer.
+
+Be warned that FTP may have firewall issues (but my efforts to use SFTP with YADE have thus far failed miserably).  The password shown comes from L. Frank Baum's "The Magic of Oz" and is not the real one.
+
+Click on "next", and we get:
+
+![Tasks Dialogue](../pics/tasks.png)
+
+I chose to do this single threaded.  Click on "Finish", since the rest of these
+are not really relevant.
+
+![Back to Jobs dialogue](../pics/jobedit5.png)
+
+Now we're back to the original dialogue with a new job added.  Double-click on
+it.
+
+![transfer_data1 Dialogue](../pics/transfer_data1.png)
+
+We don't need to do any more with this, so we go on to the next job.  Go back
+to the Jobs dialogue, click on "Wizard", configure the new job as stand-alone,
+and again use "YADE-Job" as the template.  Configure as below:
+
+![transfer_cmd1 Initial Configuration](../pics/transfer_cmd1a.png)
+
+Click on "Next".  We will then proceed the job in much the same way as the
+previous one, but the source and target directories will change and we will
+always overwrite existing files (command files are smaller).
+
+![transfer_cmd1 Parameters](../pics/transfer_cmd1b.png)
+
+Proceed with the creation of the job in the same manner as before.  We will
+then have three jobs configured.
+
+![Three jobs done](../pics/jobedit6.png)
+
+We then create "transfer_data2" in exactly the same manner as "transfer_data1",
+except that the target host is the second agent instead of the first.
+
+![transfer_data2 Dialogue](../pics/transfer_data2.png)
+
+Then we create "transfer_cmd2" in the same manner as "transfer_cmd1", but we
+transfer the data from cmd2 to the second agent.
+
+![transfer_cmd2 Parameters](../pics/transfer_cmd2.png)
+
+...to be continued.
