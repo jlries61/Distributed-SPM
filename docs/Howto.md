@@ -307,4 +307,32 @@ The last job to create is the one to report the models run.
 Make sure you save your work by clicking on the disk item.  Then we can proceed
 to define the job stream.
 
+You can now close JOE.
+
+### Configuring the Job Stream
+
+The job stream is configured in the web interface and is stored in the
+database.  Assuming JobScheduler and JOC are configured as described in the
+readme, open https://localhost:4446 in your preferred browser.  You should 
+see something like this:
+
+![JobScheduler Login Screen](../pics/joc_login.png)
+
+Login and click on the three line icon as shown.
+
+![JobScheduler Dashboard](../pics/joc_dashboard.png)
+
+Click on "JOB STREAMS", then navigate to "automate_example_stream".  Then click
+on the tree icon.  You should see something like this:
+
+![Initial Job Streams Screen](../pics/joc_jobstreams1.png)
+
+Click on "Click here to add".
+
+![Create Job Stream](../pics/create_job_stream.png)
+
+Fill in the name and click on "Submit".
+
+
+
 ...to be continued.
