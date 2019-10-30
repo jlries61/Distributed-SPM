@@ -255,4 +255,56 @@ transfer the data from cmd2 to the second agent.
 
 ![transfer_cmd2 Parameters](../pics/transfer_cmd2.png)
 
+Now we get to create the model building jobs, "build1" and "build2".  They
+look exactly the same, except that they run on different hosts.  But first,
+we need to define agents, which we will do now, so click on "Process Classes"
+and fill in the form, like so:
+
+![agent1](../pics/agent1.png)
+
+Click on "Apply Host" to add the agent URL to the list.
+
+![agent1 (URL added)](../pics/agent1a.png)
+
+Click on "Apply" to save the class.
+
+![Process Classes window after adding agent1](../pics/process_classes.png)
+
+Now add agent2 following the same procedure.
+
+![Process Classes window after adding agent2](../pics/process_classes2.png)
+
+Now go back to Jobs and click on "New Standalone Job".  Then double click on
+"job1" and fill in the dialogue.
+
+![Defining build1](../pics/build1.png)
+
+The procedure is to change to the `cmd` directory, create an `archives`
+subdirectory, execute all of the command files, and then write the performance
+and settings data to the database.
+
+But since this is all parameterized, we need to define some environment
+variables, which we do by expanding "build1" selecting "Parameters", and then
+selecting the "Environment" tab.
+
+![Defining build1 environment](../pics/build1_environment.png)
+
+Now we create build2 by copying and modifying build1.  Right-click on "build1",
+select "Copy" then select "Paste".
+
+![Copy of build1](../pics/build1_copy.png)
+
+We then change the name to "build2" and set the process class to agent2.  Those
+are the only changes required here.
+
+![Defining build2](../pics/build2.png)
+
+The last job to create is the one to report the models run.
+
+![Defining modstats](../pics/modstats_define.png)
+
+
+Make sure you save your work by clicking on the disk item.  Then we can proceed
+to define the job stream.
+
 ...to be continued.
