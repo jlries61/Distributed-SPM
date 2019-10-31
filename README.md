@@ -9,6 +9,10 @@ I have an example that will run six models on two machines residing in Azure and
 
 The instructions that follow are for Linux.  Thus far, the distributions employed have been Fedora, Ubuntu, and OpenSUSE.
 
+`docs/Howto.md` is a detailed document explaining how to set up a distributed
+job using this system.  The PDF version is `docs/Howto.pdf`.  It will get
+simpler.
+
 ## What is required?
 
 * SPM 8.3 (non-GUI), available from [Salford Systems](https://www.salford-systems.com/products/spm).
