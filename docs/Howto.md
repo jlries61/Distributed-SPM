@@ -2,9 +2,9 @@
 
 JobScheduler's job stream feature is useful for the purpose, but sorry to say, it is not entirely intuitive, so I will explain the process here.  What is envisioned is that there will be a set of command files assigned to each host machine, one or more datasets used by those jobs, and optionally, a common set of submit files for purposes of repetitive code avoidance.  In the examples included with this project, we start with a root directory with three subdirectories: `cmd`, `data`, and `results`; but individual tastes may vary.  In `cmd`, we see:
 ```
-bostn1.cmd        bostn2gen.ksh     bostn2_LS.cmd       bostn2.txt
-bostn2_GAMMA.cmd  bostn2_HUBER.cmd  bostn2_RF.cmd       FPATH.CMD
-bostn2gen2.ksh    bostn2_LAD.cmd    bostn2_TWEEDIE.cmd  LABELS.CMD
+bostn1.cmd        bostn2_HUBER.cmd  bostn2_RF.cmd       FPATH.CMD
+bostn2_GAMMA.cmd  bostn2_LAD.cmd    bostn2_TWEEDIE.cmd  LABELS.CMD
+bostn2gen3.sh     bostn2_LS.cmd     bostn2.txt
 ```
 
 The template command file is `bostn2.txt` and reads as follows:
@@ -63,15 +63,17 @@ It is also easier to distinguish `SUBMIT` files intended to be called from other
 
 ## Generating the Command Files
 
-In our example directory (see above), one of the files is `bostn2gen2.ksh`.  It reads as follows:
+In our example directory (see above), one of the files is `bostn2gen3.sh`.  It reads as follows:
 ```
-#!/bin/ksh
-SUBMITS="FPATH.CMD LABEL.CMD"
+#!/bin/sh
+SUBMITS="FPATH.CMD LABELS.CMD"
 N=2
-genmany3 -s -b bostn2_ -s bostn2.txt LOSSFUNC LAD LS HUBER RF GAMMA TWEEDIE
+
+scmdgen --input=bostn2.txt --baseout=bostn2 --use_values \
+        LOSSFUNC=LAD,LS,HUBER,RF,GAMMA,TWEEDIE
 let i=0
 for file in bostn2*.cmd; do
-  if [[ $i -ge $N ]]; then
+  if [ $i -ge $N ]; then
     let i=0
   fi
   let i=$i+1
@@ -82,7 +84,7 @@ for dir in ../cmd[1-$N]; do
 done
 ```
 
-In the example script above we make use of a proprietary shell script which is used to generate a number of slightly different .cmd files allowing us to explore variations in model specifications, including hyperparameters.  I expect to provide an open source substitute for genmany in the near future but most experienced programmers would find it relatively easy to write their own.
+The above example, uses the [Small Command Generator (scmdgen)](https://github.com/jlries61/scmdgen) to create a command file to build each of the six variant models.
 
 The command files produced are `bostn2_*.cmd` as follows:
 ```
