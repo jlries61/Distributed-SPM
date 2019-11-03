@@ -1,11 +1,11 @@
 submit fpath
-output bostn2_LOSSFUNC
-grove bostn2_LOSSFUNC
+output bostn2_HUBER
+grove bostn2_HUBER
 memo "Basic TN model on the Boston housing data"
-memo "LOSS=LOSSFUNC"
+memo "LOSS=HUBER"
 memo echo
 use boston
 submit labels
 category chas
 model mv
-treenet loss=LOSSFUNC go
+treenet loss=HUBER go
