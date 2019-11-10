@@ -5,7 +5,7 @@
     <params />
 
     <environment >
-        <variable  name="ROOT" value="$HOME/projects/automate"/>
+        <variable  name="ROOT" value="/home/jries/projects/automate"/>
     </environment>
 
     <script  language="shell">
